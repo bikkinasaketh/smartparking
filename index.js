@@ -1,6 +1,25 @@
 const searchBtn = document.getElementById("searchBtn");
 const parkingResults = document.getElementById("parkingResults");
 
+const locationInput = document.getElementById("location");
+const dateInput = document.getElementById("date");
+const timeInput = document.getElementById("time");
+
+const bookingParking = document.getElementById("bookingParking");
+const bookingSlot = document.getElementById("bookingSlot");
+const bookingDate = document.getElementById("bookingDate");
+const bookingTime = document.getElementById("bookingTime");
+const vehicleNumber = document.getElementById("vehicleNumber");
+
+const contactName = document.getElementById("contactName");
+const contactEmail = document.getElementById("contactEmail");
+const contactSubject = document.getElementById("contactSubject");
+const contactMessage = document.getElementById("contactMessage");
+
+const loginButton = document.getElementById("loginButton");
+const signupButton = document.getElementById("signupButton");
+const logoutButton = document.getElementById("logoutButton");
+
 const parkingData = [
     {
         name: "City Center Parking",
@@ -40,7 +59,7 @@ let selectedSlot = null;
 let smartParkSlots =
     JSON.parse(localStorage.getItem("smartParkSlots")) || {};
 
-parkingData.forEach(parking => {
+parkingData.forEach(function (parking) {
 
     if (!Array.isArray(smartParkSlots[parking.name])) {
         smartParkSlots[parking.name] = [];
@@ -52,9 +71,9 @@ parkingData.forEach(parking => {
             `A${String(i).padStart(2, "0")}`;
 
         const existingSlot =
-            smartParkSlots[parking.name].find(
-                slot => slot.slot === slotName
-            );
+            smartParkSlots[parking.name].find(function (slot) {
+                return slot.slot === slotName;
+            });
 
         if (!existingSlot) {
 
@@ -62,8 +81,11 @@ parkingData.forEach(parking => {
                 slot: slotName,
                 status: "available"
             });
+
         }
+
     }
+
 });
 
 localStorage.setItem(
@@ -76,23 +98,25 @@ function getAvailableSlots(parkingName) {
     const slots =
         smartParkSlots[parkingName] || [];
 
-    return slots.filter(
-        slot => slot.status === "available"
-    ).length;
+    return slots.filter(function (slot) {
+        return slot.status === "available";
+    }).length;
 }
 
 function updateParkingAvailability() {
 
     document
         .querySelectorAll(".available-slots")
-        .forEach(element => {
+        .forEach(function (element) {
 
             const parkingName =
                 element.getAttribute("data-parking");
 
             element.textContent =
                 getAvailableSlots(parkingName);
+
         });
+
 }
 
 updateParkingAvailability();
@@ -102,295 +126,248 @@ if (searchBtn) {
     searchBtn.addEventListener("click", function () {
 
         const location =
-            document.getElementById("location").value;
+            locationInput.value.trim();
 
         const date =
-            document.getElementById("date").value;
+            dateInput.value;
 
         const time =
-            document.getElementById("time").value;
+            timeInput.value;
 
         if (location === "") {
-
-            alert("Please select location");
-
+            alert("Please select a location");
             return;
         }
 
         if (date === "") {
-
-            alert("Please select date");
-
+            alert("Please select a date");
             return;
         }
 
         if (time === "") {
+            alert("Please select a time");
+            return;
+        }
 
-            alert("Please select time");
+        const today =
+            new Date().toISOString().split("T")[0];
 
+        if (date < today) {
+            alert("Please select a current or future date");
             return;
         }
 
         const results =
-            parkingData.filter(
-                parking =>
-                    parking.location === location
-            );
+            parkingData.filter(function (parking) {
+
+                return parking.location.toLowerCase() ===
+                    location.toLowerCase();
+
+            });
+
+        parkingResults.innerHTML = "";
 
         if (results.length === 0) {
 
             parkingResults.innerHTML = `
-
-                <div class="parking-card">
-
-                    <h3>
-                        No Parking Found
-                    </h3>
-
-                    <p>
-                        No parking available at this location.
-                    </p>
-
+                <div class="no-results">
+                    <h3>No Parking Found</h3>
+                    <p>No parking areas are available at this location.</p>
                 </div>
-
             `;
 
             return;
         }
 
-        parkingResults.innerHTML = "";
+        results.forEach(function (parking) {
 
-        results.forEach(parking => {
-
-            const availableCount =
+            const available =
                 getAvailableSlots(parking.name);
 
-            const status =
-                availableCount > 0
-                    ? "Available"
-                    : "Full";
+            const card =
+                document.createElement("div");
 
-            parkingResults.innerHTML += `
+            card.className = "parking-card";
 
-                <div class="parking-card">
+            card.innerHTML = `
+                <div class="parking-card-content">
 
-                    <div class="parking-card-top">
-
-                        <div>
-
-                            <span>
-                                Parking Area
-                            </span>
-
-                            <h3>
-                                ${parking.name}
-                            </h3>
-
-                        </div>
-
-                        <span class="available">
-                            ${status}
-                        </span>
-
-                    </div>
+                    <h3>${parking.name}</h3>
 
                     <p class="parking-location">
-                        ${parking.location}
+                        📍 ${parking.location}
                     </p>
 
-                    <div class="parking-info">
+                    <p class="parking-price">
+                        ₹${parking.price} / hour
+                    </p>
 
-                        <div>
-
-                            <strong>
-                                ${parking.total}
-                            </strong>
-
-                            <span>
-                                Total Slots
-                            </span>
-
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                ${availableCount}
-                            </strong>
-
-                            <span>
-                                Available
-                            </span>
-
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                ₹${parking.price}
-                            </strong>
-
-                            <span>
-                                Per Hour
-                            </span>
-
-                        </div>
-
-                    </div>
+                    <p class="parking-availability">
+                        <span class="available-slots">
+                            ${available}
+                        </span>
+                        slots available
+                    </p>
 
                     <button
-                        class="park-button"
-                        data-parking="${parking.name}"
+                        type="button"
+                        class="view-slots-button"
                     >
                         View Slots
                     </button>
 
                 </div>
-
             `;
+
+            const viewButton =
+                card.querySelector(".view-slots-button");
+
+            viewButton.addEventListener(
+                "click",
+                function () {
+                    showSlots(parking.name);
+                }
+            );
+
+            parkingResults.appendChild(card);
+
         });
 
-        document
-            .querySelectorAll(".park-button")
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        const parkingName =
-                            this.getAttribute(
-                                "data-parking"
-                            );
-
-                        showSlots(parkingName);
-                    }
-                );
-            });
+        updateParkingAvailability();
 
         parkingResults.scrollIntoView({
-            behavior: "smooth"
+            behavior: "smooth",
+            block: "start"
         });
+
     });
+
 }
 
 function showSlots(parkingName) {
 
     selectedParking =
-        parkingData.find(
-            parking =>
-                parking.name === parkingName
-        );
-
-    selectedSlot = null;
+        parkingData.find(function (parking) {
+            return parking.name === parkingName;
+        });
 
     if (!selectedParking) {
-
-        alert("Parking area not found");
-
         return;
     }
 
     const slots =
-        smartParkSlots[selectedParking.name];
+        smartParkSlots[parkingName] || [];
 
-    let slotsHTML = "";
+    parkingResults.innerHTML = "";
 
-    slots.forEach(slot => {
+    const slotSection =
+        document.createElement("div");
 
-        if (slot.status === "occupied") {
+    slotSection.className = "slot-section";
 
-            slotsHTML += `
+    slotSection.innerHTML = `
+        <div class="slot-header">
 
-                <button
-                    class="slot occupied"
-                    disabled
-                >
-                    ${slot.slot}
-                </button>
-
-            `;
-
-        } else {
-
-            slotsHTML += `
-
-                <button
-                    class="slot available-slot"
-                    data-slot="${slot.slot}"
-                >
-                    ${slot.slot}
-                </button>
-
-            `;
-        }
-    });
-
-    parkingResults.innerHTML = `
-
-        <div class="slot-section">
+            <div>
+                <h2>${selectedParking.name}</h2>
+                <p>
+                    ${selectedParking.location}
+                    • ₹${selectedParking.price} / hour
+                </p>
+            </div>
 
             <button
-                class="back-button"
-                id="backToParking"
+                type="button"
+                class="back-slots-button"
+                id="backSlotsButton"
             >
                 ← Back
             </button>
 
-            <h2>
-                ${selectedParking.name}
-            </h2>
+        </div>
 
-            <p>
-                Select an available parking slot
-            </p>
+        <div class="slot-legend">
 
-            <div class="slot-container">
+            <div>
+                <span class="legend-box available"></span>
+                Available
+            </div>
 
-                ${slotsHTML}
+            <div>
+                <span class="legend-box occupied"></span>
+                Occupied
+            </div>
 
+            <div>
+                <span class="legend-box selected"></span>
+                Selected
             </div>
 
         </div>
 
+        <div class="slots-container" id="slotsContainer"></div>
     `;
 
-    const backButton =
-        document.getElementById(
-            "backToParking"
-        );
+    parkingResults.appendChild(slotSection);
 
-    if (backButton) {
+    const slotsContainer =
+        document.getElementById("slotsContainer");
 
-        backButton.addEventListener(
-            "click",
-            function () {
+    slots.forEach(function (slot) {
 
-                searchBtn.click();
-            }
-        );
-    }
+        const slotButton =
+            document.createElement("button");
 
-    document
-        .querySelectorAll(".available-slot")
-        .forEach(button => {
+        slotButton.type = "button";
 
-            button.addEventListener(
+        slotButton.className =
+            "parking-slot";
+
+        slotButton.textContent =
+            slot.slot;
+
+        if (slot.status === "occupied") {
+
+            slotButton.classList.add("occupied");
+
+            slotButton.disabled = true;
+
+        } else {
+
+            slotButton.classList.add("available");
+
+            slotButton.addEventListener(
                 "click",
                 function () {
-
-                    selectSlot(
-                        this.getAttribute(
-                            "data-slot"
-                        )
-                    );
+                    selectSlot(slot.slot);
                 }
             );
-        });
+
+        }
+
+        slotsContainer.appendChild(slotButton);
+
+    });
+
+    const backButton =
+        document.getElementById("backSlotsButton");
+
+    backButton.addEventListener(
+        "click",
+        function () {
+
+            if (searchBtn) {
+                searchBtn.click();
+            }
+
+        }
+    );
 
     parkingResults.scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
+        block: "start"
     });
+
 }
 
 function selectSlot(slot) {
@@ -398,48 +375,35 @@ function selectSlot(slot) {
     selectedSlot = slot;
 
     document
-        .querySelectorAll(".available-slot")
-        .forEach(button => {
+        .querySelectorAll(".parking-slot")
+        .forEach(function (button) {
 
             button.classList.remove("selected");
 
-            if (
-                button.getAttribute("data-slot") ===
-                slot
-            ) {
-
+            if (button.textContent === slot) {
                 button.classList.add("selected");
             }
+
         });
 
-    const bookingParking =
-        document.getElementById(
-            "bookingParking"
-        );
-
-    const bookingSlot =
-        document.getElementById(
-            "bookingSlot"
-        );
-
     if (bookingParking) {
-
         bookingParking.value =
             selectedParking.name;
     }
 
     if (bookingSlot) {
-
-        bookingSlot.innerHTML = `
-
-            <option value="${selectedSlot}">
-                ${selectedSlot}
-            </option>
-
-        `;
-
         bookingSlot.value =
             selectedSlot;
+    }
+
+    if (bookingDate && dateInput) {
+        bookingDate.value =
+            dateInput.value;
+    }
+
+    if (bookingTime && timeInput) {
+        bookingTime.value =
+            timeInput.value;
     }
 
     const bookingSection =
@@ -448,9 +412,12 @@ function selectSlot(slot) {
     if (bookingSection) {
 
         bookingSection.scrollIntoView({
-            behavior: "smooth"
+            behavior: "smooth",
+            block: "start"
         });
+
     }
+
 }
 
 const confirmButton =
@@ -462,230 +429,255 @@ if (confirmButton) {
         "click",
         function () {
 
-            if (!selectedParking) {
+            const parkingName =
+                bookingParking.value.trim();
 
-                alert(
-                    "Please select a parking area"
-                );
-
-                return;
-            }
-
-            if (!selectedSlot) {
-
-                alert(
-                    "Please select a parking slot"
-                );
-
-                return;
-            }
+            const slotName =
+                bookingSlot.value.trim();
 
             const date =
-                document.getElementById(
-                    "bookingDate"
-                ).value;
+                bookingDate.value;
 
             const time =
-                document.getElementById(
-                    "bookingTime"
-                ).value;
+                bookingTime.value;
 
             const vehicle =
-                document.getElementById(
-                    "vehicleNumber"
-                ).value.trim();
+                vehicleNumber.value
+                    .trim()
+                    .toUpperCase();
+
+            if (parkingName === "") {
+                alert("Please select parking");
+                return;
+            }
+
+            if (slotName === "") {
+                alert("Please select a parking slot");
+                return;
+            }
 
             if (date === "") {
-
-                alert(
-                    "Please select booking date"
-                );
-
+                alert("Please select booking date");
                 return;
             }
 
             if (time === "") {
-
-                alert(
-                    "Please select booking time"
-                );
-
+                alert("Please select booking time");
                 return;
             }
 
             if (vehicle === "") {
+                alert("Please enter vehicle number");
+                return;
+            }
 
-                alert(
-                    "Please enter vehicle number"
-                );
+            const today =
+                new Date().toISOString().split("T")[0];
 
+            if (date < today) {
+                alert("Please select a current or future date");
+                return;
+            }
+
+            const parking =
+                parkingData.find(function (item) {
+                    return item.name === parkingName;
+                });
+
+            if (!parking) {
+                alert("Parking not found");
                 return;
             }
 
             const slots =
-                smartParkSlots[
-                    selectedParking.name
-                ];
+                smartParkSlots[parkingName] || [];
 
             const selectedSlotData =
-                slots.find(
-                    slot =>
-                        slot.slot === selectedSlot
-                );
+                slots.find(function (slot) {
+                    return slot.slot === slotName;
+                });
 
             if (!selectedSlotData) {
-
-                alert("Slot not found");
-
+                alert("Selected slot not found");
                 return;
             }
 
-            if (
-                selectedSlotData.status ===
-                "occupied"
-            ) {
-
-                alert(
-                    "This slot is already occupied"
-                );
-
+            if (selectedSlotData.status === "occupied") {
+                alert("This slot is already occupied");
                 return;
             }
 
             selectedSlotData.status =
                 "occupied";
 
+            smartParkSlots[parkingName] =
+                slots;
+
             localStorage.setItem(
                 "smartParkSlots",
-                JSON.stringify(
-                    smartParkSlots
-                )
+                JSON.stringify(smartParkSlots)
             );
 
             const booking = {
 
-                parking:
-                    selectedParking.name,
+                parking: parking.name,
 
-                location:
-                    selectedParking.location,
+                location: parking.location,
 
-                slot:
-                    selectedSlot,
+                slot: slotName,
 
-                date:
-                    date,
+                date: date,
 
-                time:
-                    time,
+                time: time,
 
-                vehicle:
-                    vehicle,
+                vehicle: vehicle,
 
-                price:
-                    selectedParking.price,
+                price: parking.price,
 
-                status:
-                    "active"
+                status: "active"
+
             };
 
             localStorage.setItem(
                 "smartParkBooking",
-                JSON.stringify(
-                    booking
-                )
+                JSON.stringify(booking)
             );
+
+            selectedParking = parking;
+            selectedSlot = slotName;
 
             updateParkingAvailability();
 
-            showBookingConfirmation(
-                booking
+            const confirmation =
+                document.createElement("div");
+
+            confirmation.className =
+                "booking-confirmation";
+
+            confirmation.innerHTML = `
+                <div class="confirmation-card">
+
+                    <h2>Booking Confirmed!</h2>
+
+                    <p>
+                        Your parking slot has been reserved successfully.
+                    </p>
+
+                    <div class="confirmation-details">
+
+                        <p>
+                            <strong>Parking:</strong>
+                            ${parking.name}
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            ${parking.location}
+                        </p>
+
+                        <p>
+                            <strong>Slot:</strong>
+                            ${slotName}
+                        </p>
+
+                        <p>
+                            <strong>Date:</strong>
+                            ${date}
+                        </p>
+
+                        <p>
+                            <strong>Time:</strong>
+                            ${time}
+                        </p>
+
+                        <p>
+                            <strong>Vehicle:</strong>
+                            ${vehicle}
+                        </p>
+
+                        <p>
+                            <strong>Price:</strong>
+                            ₹${parking.price} / hour
+                        </p>
+
+                    </div>
+
+                    <div class="confirmation-buttons">
+
+                        <button
+                            type="button"
+                            id="dashboardButton"
+                        >
+                            Go to Dashboard
+                        </button>
+
+                        <button
+                            type="button"
+                            id="homeButton"
+                        >
+                            Back to Home
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+            document.body.appendChild(
+                confirmation
             );
+
+            document
+                .getElementById("dashboardButton")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    }
+                );
+
+            document
+                .getElementById("homeButton")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        confirmation.remove();
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+
+                    }
+                );
+
+            if (bookingParking) {
+                bookingParking.value = "";
+            }
+
+            if (bookingSlot) {
+                bookingSlot.value = "";
+            }
+
+            if (bookingDate) {
+                bookingDate.value = "";
+            }
+
+            if (bookingTime) {
+                bookingTime.value = "";
+            }
+
+            if (vehicleNumber) {
+                vehicleNumber.value = "";
+            }
+
         }
     );
-}
 
-function showBookingConfirmation(booking) {
-
-    parkingResults.innerHTML = `
-
-        <div class="booking-confirmation">
-
-            <h2>
-                Booking Confirmed!
-            </h2>
-
-            <p>
-                Your parking slot has been
-                successfully reserved.
-            </p>
-
-            <p>
-                <strong>Parking:</strong>
-                ${booking.parking}
-            </p>
-
-            <p>
-                <strong>Location:</strong>
-                ${booking.location}
-            </p>
-
-            <p>
-                <strong>Slot:</strong>
-                ${booking.slot}
-            </p>
-
-            <p>
-                <strong>Date:</strong>
-                ${booking.date}
-            </p>
-
-            <p>
-                <strong>Time:</strong>
-                ${booking.time}
-            </p>
-
-            <p>
-                <strong>Vehicle:</strong>
-                ${booking.vehicle}
-            </p>
-
-            <p>
-                <strong>Price:</strong>
-                ₹${booking.price} / hour
-            </p>
-
-            <button
-                class="dashboard-button"
-                id="goDashboard"
-            >
-                Go To Dashboard
-            </button>
-
-        </div>
-
-    `;
-
-    const goDashboard =
-        document.getElementById(
-            "goDashboard"
-        );
-
-    if (goDashboard) {
-
-        goDashboard.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "dashboard.html";
-            }
-        );
-    }
-
-    parkingResults.scrollIntoView({
-        behavior: "smooth"
-    });
 }
 
 const contactButton =
@@ -698,92 +690,83 @@ if (contactButton) {
         function () {
 
             const name =
-                document.getElementById(
-                    "contactName"
-                ).value.trim();
+                contactName.value.trim();
 
             const email =
-                document.getElementById(
-                    "contactEmail"
-                ).value.trim();
+                contactEmail.value.trim();
 
             const subject =
-                document.getElementById(
-                    "contactSubject"
-                ).value.trim();
+                contactSubject.value.trim();
 
             const message =
-                document.getElementById(
-                    "contactMessage"
-                ).value.trim();
+                contactMessage.value.trim();
 
             if (name === "") {
-
-                alert(
-                    "Please enter your name"
-                );
-
+                alert("Please enter your name");
                 return;
             }
 
             if (email === "") {
+                alert("Please enter your email");
+                return;
+            }
 
-                alert(
-                    "Please enter your email"
-                );
-
+            if (!email.includes("@")) {
+                alert("Please enter a valid email");
                 return;
             }
 
             if (subject === "") {
-
-                alert(
-                    "Please enter subject"
-                );
-
+                alert("Please enter subject");
                 return;
             }
 
             if (message === "") {
-
-                alert(
-                    "Please enter your message"
-                );
-
+                alert("Please enter your message");
                 return;
             }
+
+            const contactData = {
+
+                name: name,
+
+                email: email,
+
+                subject: subject,
+
+                message: message,
+
+                date: new Date().toLocaleString()
+
+            };
+
+            const oldMessages =
+                JSON.parse(
+                    localStorage.getItem(
+                        "smartParkContacts"
+                    )
+                ) || [];
+
+            oldMessages.push(contactData);
+
+            localStorage.setItem(
+                "smartParkContacts",
+                JSON.stringify(oldMessages)
+            );
 
             alert(
                 "Your message has been sent successfully!"
             );
 
-            document.getElementById(
-                "contactName"
-            ).value = "";
+            contactName.value = "";
+            contactEmail.value = "";
+            contactSubject.value = "";
+            contactMessage.value = "";
 
-            document.getElementById(
-                "contactEmail"
-            ).value = "";
-
-            document.getElementById(
-                "contactSubject"
-            ).value = "";
-
-            document.getElementById(
-                "contactMessage"
-            ).value = "";
         }
     );
+
 }
-
-const loginButton =
-    document.getElementById("loginButton");
-
-const signupButton =
-    document.getElementById("signupButton");
-
-const logoutButton =
-    document.getElementById("logoutButton");
 
 const loggedIn =
     localStorage.getItem(
@@ -793,30 +776,37 @@ const loggedIn =
 if (loggedIn === "true") {
 
     if (loginButton) {
-        loginButton.style.display = "none";
+        loginButton.style.display =
+            "none";
     }
 
     if (signupButton) {
-        signupButton.style.display = "none";
+        signupButton.style.display =
+            "none";
     }
 
     if (logoutButton) {
-        logoutButton.style.display = "block";
+        logoutButton.style.display =
+            "block";
     }
 
 } else {
 
     if (loginButton) {
-        loginButton.style.display = "inline-block";
+        loginButton.style.display =
+            "inline-block";
     }
 
     if (signupButton) {
-        signupButton.style.display = "inline-block";
+        signupButton.style.display =
+            "inline-block";
     }
 
     if (logoutButton) {
-        logoutButton.style.display = "none";
+        logoutButton.style.display =
+            "none";
     }
+
 }
 
 if (logoutButton) {
@@ -830,15 +820,30 @@ if (logoutButton) {
             );
 
             localStorage.removeItem(
-                "smartParkUser"
-            );
-
-            localStorage.removeItem(
                 "smartParkUserName"
             );
 
             window.location.href =
                 "login.html";
+
         }
     );
+
+}
+
+const myBookingButton =
+    document.getElementById("myBookingButton");
+
+if (myBookingButton) {
+
+    myBookingButton.addEventListener(
+        "click",
+        function () {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+    );
+
 }
