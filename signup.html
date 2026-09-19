@@ -1,10 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Sign Up - SmartPark</title>
+
     <link rel="stylesheet" href="./login.css">
 </head>
 
@@ -24,58 +25,79 @@
                 <p>Join SmartPark and make parking easier.</p>
             </div>
 
-            <form>
+            <form id="signupForm">
 
                 <div class="name-row">
 
                     <div class="signup-field">
                         <label for="firstName">First Name</label>
+
                         <input
                             type="text"
                             id="firstName"
-                            placeholder="First name"
+                            placeholder="Enter first name"
+                            autocomplete="given-name"
                         >
                     </div>
 
                     <div class="signup-field">
                         <label for="lastName">Last Name</label>
+
                         <input
                             type="text"
                             id="lastName"
-                            placeholder="Last name"
+                            placeholder="Enter last name"
+                            autocomplete="family-name"
                         >
                     </div>
 
                 </div>
 
                 <div class="signup-field">
+
                     <label for="signupEmail">Email Address</label>
+
                     <input
                         type="email"
                         id="signupEmail"
                         placeholder="Enter your email"
+                        autocomplete="email"
                     >
+
                 </div>
 
                 <div class="signup-field">
+
                     <label for="signupPassword">Password</label>
+
                     <input
                         type="password"
                         id="signupPassword"
                         placeholder="Create a password"
+                        autocomplete="new-password"
                     >
+
                 </div>
 
                 <div class="signup-field">
+
                     <label for="confirmPassword">Confirm Password</label>
+
                     <input
                         type="password"
                         id="confirmPassword"
                         placeholder="Confirm your password"
+                        autocomplete="new-password"
                     >
+
                 </div>
 
-                <button type="button" id="signupButton">
+                <p id="signupMessage"></p>
+
+                <button
+                    type="button"
+                    id="signupButton"
+                >
                     Create Account
                 </button>
 
@@ -86,7 +108,10 @@
                 <a href="login.html">Login</a>
             </p>
 
-            <a class="back-home" href="index.html">
+            <a
+                class="back-home"
+                href="index.html"
+            >
                 ← Back to SmartPark
             </a>
 
