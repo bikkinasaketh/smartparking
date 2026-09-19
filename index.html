@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SmartPark - Smart Parking Solution</title>
-
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
 
-    <header class="header">
+<header class="header">
+    <div class="container nav-container">
 
         <div class="logo">
             <h1>Smart<span>Park</span></h1>
         </div>
 
-        <nav class="navbar">
-
+        <nav class="nav-menu">
             <a href="#Home">Home</a>
             <a href="#Features">Features</a>
             <a href="#HowItWorks">How It Works</a>
@@ -27,870 +24,696 @@
             <a href="#Parking">Parking</a>
             <a href="#Booking">Booking</a>
             <a href="#Contact">Contact</a>
-            <a href="#" id="myBookingButton">My Booking</a>
-
+            <a href="dashboard.html">My Booking</a>
         </nav>
 
-        <div class="auth-buttons">
+        <div class="auth-buttons" id="authButtons">
 
-            <a href="login.html" class="login-button">
+            <a
+                href="login.html"
+                class="login-button"
+                id="loginButton"
+            >
                 Login
             </a>
 
-            <a href="signup.html" class="signup-button">
+            <a
+                href="signup.html"
+                class="signup-button"
+                id="signupButton"
+            >
                 Sign Up
             </a>
 
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+                style="display: none;"
+            >
+                Logout
+            </button>
+
         </div>
 
-    </header>
+    </div>
+</header>
 
 
-    <main>
+<main>
 
+<section class="home-section" id="Home">
 
-        <section id="Home" class="home-section">
+    <div class="home-content">
 
-            <div class="home-content">
+        <h1>Find Your Perfect Parking Spot</h1>
 
-                <h1>
-                    Find Your Perfect
-                    <span>Parking Spot</span>
-                </h1>
+        <p>
+            SmartPark helps you find and book parking spaces quickly and easily.
+        </p>
 
-                <p>
-                    SmartPark makes parking simple, fast,
-                    and stress-free.
-                </p>
+        <div class="search-container">
 
+            <div class="search-field">
 
-                <div class="search-box">
+                <label for="location">
+                    Location
+                </label>
 
-                    <h2>
-                        Find Parking
-                    </h2>
+                <select id="location">
 
+                    <option value="">
+                        Select Location
+                    </option>
 
-                    <div class="search-form">
-
-                        <div class="search-field">
-
-                            <label for="location">
-                                Location
-                            </label>
-
-                            <input
-                                type="text"
-                                id="location"
-                                placeholder="Enter location"
-                            >
-
-                        </div>
-
-
-                        <div class="search-field">
-
-                            <label for="date">
-                                Date
-                            </label>
-
-                            <input
-                                type="date"
-                                id="date"
-                            >
-
-                        </div>
-
-
-                        <div class="search-field">
-
-                            <label for="time">
-                                Time
-                            </label>
-
-                            <input
-                                type="time"
-                                id="time"
-                            >
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            id="searchBtn"
-                        >
-                            Search Now
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section
-            id="parkingResults"
-            class="parking-results"
-        >
-        </section>
-
-
-        <section
-            id="Features"
-            class="features-section"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    SmartPark Features
-                </h2>
-
-                <p>
-                    Everything you need for a better parking experience.
-                </p>
-
-            </div>
-
-
-            <div class="features-container">
-
-                <div class="feature-card">
-
-                    <h3>
-                        Easy Parking Search
-                    </h3>
-
-                    <p>
-                        Find available parking spaces
-                        quickly using your location.
-                    </p>
-
-                </div>
-
-
-                <div class="feature-card">
-
-                    <h3>
-                        Real-Time Availability
-                    </h3>
-
-                    <p>
-                        Check available and occupied
-                        parking slots.
-                    </p>
-
-                </div>
-
-
-                <div class="feature-card">
-
-                    <h3>
-                        Easy Booking
-                    </h3>
-
-                    <p>
-                        Select your preferred slot
-                        and book it easily.
-                    </p>
-
-                </div>
-
-
-                <div class="feature-card">
-
-                    <h3>
-                        Secure Booking
-                    </h3>
-
-                    <p>
-                        Your booking details are
-                        safely stored.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section
-            id="HowItWorks"
-            class="how-it-works-section"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    How It Works
-                </h2>
-
-                <p>
-                    Parking made simple in four steps.
-                </p>
-
-            </div>
-
-
-            <div class="steps-container">
-
-                <div class="step-card">
-
-                    <span>1</span>
-
-                    <h3>
-                        Search
-                    </h3>
-
-                    <p>
-                        Enter your location, date,
-                        and time.
-                    </p>
-
-                </div>
-
-
-                <div class="step-card">
-
-                    <span>2</span>
-
-                    <h3>
-                        Select
-                    </h3>
-
-                    <p>
-                        Choose your preferred
-                        parking area and slot.
-                    </p>
-
-                </div>
-
-
-                <div class="step-card">
-
-                    <span>3</span>
-
-                    <h3>
-                        Book
-                    </h3>
-
-                    <p>
-                        Enter your vehicle details
-                        and confirm your booking.
-                    </p>
-
-                </div>
-
-
-                <div class="step-card">
-
-                    <span>4</span>
-
-                    <h3>
-                        Park
-                    </h3>
-
-                    <p>
-                        Park your vehicle and
-                        enjoy your day.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section
-            id="About"
-            class="about-section"
-        >
-
-            <div class="about-content">
-
-                <div class="about-image">
-
-                    <img
-                        src="parking-about.jpg"
-                        alt="Smart Parking"
-                    >
-
-                </div>
-
-
-                <div class="about-text">
-
-                    <h2>
-                        About SmartPark
-                    </h2>
-
-                    <p>
-                        SmartPark is a smart parking solution
-                        designed to make finding and booking
-                        parking spaces easier.
-                    </p>
-
-                    <p>
-                        Users can search for parking areas,
-                        check slot availability, reserve a
-                        parking slot, and manage their booking.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section
-            id="Parking"
-            class="parking-section"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    Popular Parking Areas
-                </h2>
-
-                <p>
-                    Explore some available parking locations.
-                </p>
-
-            </div>
-
-
-            <div class="parking-container">
-
-
-                <div class="parking-card">
-
-                    <div class="parking-card-top">
-
-                        <div>
-
-                            <span>
-                                Parking Area
-                            </span>
-
-                            <h3>
-                                City Center Parking
-                            </h3>
-
-                        </div>
-
-                        <span class="available">
-                            Available
-                        </span>
-
-                    </div>
-
-
-                    <p class="parking-location">
+                    <option value="Main Road">
                         Main Road
-                    </p>
+                    </option>
 
-
-                    <div class="parking-info">
-
-                        <div>
-
-                            <strong>
-                                24
-                            </strong>
-
-                            <span>
-                                Total Slots
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                12
-                            </strong>
-
-                            <span>
-                                Available
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                ₹30
-                            </strong>
-
-                            <span>
-                                Per Hour
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="parking-card">
-
-                    <div class="parking-card-top">
-
-                        <div>
-
-                            <span>
-                                Parking Area
-                            </span>
-
-                            <h3>
-                                Tech Park Parking
-                            </h3>
-
-                        </div>
-
-                        <span class="available">
-                            Available
-                        </span>
-
-                    </div>
-
-
-                    <p class="parking-location">
+                    <option value="IT Road">
                         IT Road
-                    </p>
+                    </option>
 
-
-                    <div class="parking-info">
-
-                        <div>
-
-                            <strong>
-                                40
-                            </strong>
-
-                            <span>
-                                Total Slots
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                18
-                            </strong>
-
-                            <span>
-                                Available
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                ₹40
-                            </strong>
-
-                            <span>
-                                Per Hour
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="parking-card">
-
-                    <div class="parking-card-top">
-
-                        <div>
-
-                            <span>
-                                Parking Area
-                            </span>
-
-                            <h3>
-                                Metro Parking
-                            </h3>
-
-                        </div>
-
-                        <span class="available">
-                            Available
-                        </span>
-
-                    </div>
-
-
-                    <p class="parking-location">
+                    <option value="Metro Station">
                         Metro Station
-                    </p>
+                    </option>
 
-
-                    <div class="parking-info">
-
-                        <div>
-
-                            <strong>
-                                30
-                            </strong>
-
-                            <span>
-                                Total Slots
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                4
-                            </strong>
-
-                            <span>
-                                Available
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                ₹25
-                            </strong>
-
-                            <span>
-                                Per Hour
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section
-            id="Booking"
-            class="booking-section"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    Book Your Parking Slot
-                </h2>
-
-                <p>
-                    Complete your booking details.
-                </p>
+                </select>
 
             </div>
 
 
-            <div class="booking-container">
+            <div class="search-field">
 
+                <label for="date">
+                    Date
+                </label>
 
-                <div class="booking-field">
-
-                    <label for="bookingParking">
-                        Parking Area
-                    </label>
-
-                    <select id="bookingParking">
-
-                        <option value="">
-                            Select Parking Area
-                        </option>
-
-                        <option value="City Center Parking">
-                            City Center Parking
-                        </option>
-
-                        <option value="Tech Park Parking">
-                            Tech Park Parking
-                        </option>
-
-                        <option value="Metro Parking">
-                            Metro Parking
-                        </option>
-
-                        <option value="Central Mall Parking">
-                            Central Mall Parking
-                        </option>
-
-                        <option value="Business Hub Parking">
-                            Business Hub Parking
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="booking-field">
-
-                    <label for="bookingSlot">
-                        Parking Slot
-                    </label>
-
-                    <select id="bookingSlot">
-
-                        <option value="">
-                            Select Slot
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="booking-field">
-
-                    <label for="bookingDate">
-                        Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="bookingDate"
-                    >
-
-                </div>
-
-
-                <div class="booking-field">
-
-                    <label for="bookingTime">
-                        Time
-                    </label>
-
-                    <input
-                        type="time"
-                        id="bookingTime"
-                    >
-
-                </div>
-
-
-                <div class="booking-field">
-
-                    <label for="vehicleNumber">
-                        Vehicle Number
-                    </label>
-
-                    <input
-                        type="text"
-                        id="vehicleNumber"
-                        placeholder="Enter vehicle number"
-                    >
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="confirm-button"
+                <input
+                    type="date"
+                    id="date"
                 >
-                    Confirm Booking
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <section
-            id="Contact"
-            class="contact-section"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    Contact Us
-                </h2>
-
-                <p>
-                    Have questions? Send us a message.
-                </p>
 
             </div>
 
 
-            <div class="contact-container">
+            <div class="search-field">
 
+                <label for="time">
+                    Time
+                </label>
 
-                <div class="contact-field">
-
-                    <label for="contactName">
-                        Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="contactName"
-                        placeholder="Enter your name"
-                    >
-
-                </div>
-
-
-                <div class="contact-field">
-
-                    <label for="contactEmail">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="contactEmail"
-                        placeholder="Enter your email"
-                    >
-
-                </div>
-
-
-                <div class="contact-field">
-
-                    <label for="contactSubject">
-                        Subject
-                    </label>
-
-                    <input
-                        type="text"
-                        id="contactSubject"
-                        placeholder="Enter subject"
-                    >
-
-                </div>
-
-
-                <div class="contact-field">
-
-                    <label for="contactMessage">
-                        Message
-                    </label>
-
-                    <textarea
-                        id="contactMessage"
-                        placeholder="Enter your message"
-                    ></textarea>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="contact-button"
+                <input
+                    type="time"
+                    id="time"
                 >
-                    Send Message
-                </button>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer class="footer">
-
-        <div class="footer-content">
-
-            <div>
-
-                <h2>
-                    Smart<span>Park</span>
-                </h2>
-
-                <p>
-                    Park smart. Live better.
-                </p>
 
             </div>
 
 
-            <div>
-
-                <h3>
-                    Quick Links
-                </h3>
-
-                <a href="#Home">
-                    Home
-                </a>
-
-                <a href="#Features">
-                    Features
-                </a>
-
-                <a href="#Booking">
-                    Booking
-                </a>
-
-                <a href="#Contact">
-                    Contact
-                </a>
-
-            </div>
-
-
-            <div>
-
-                <h3>
-                    Account
-                </h3>
-
-                <a href="login.html">
-                    Login
-                </a>
-
-                <a href="signup.html">
-                    Sign Up
-                </a>
-
-            </div>
+            <button
+                type="button"
+                id="searchBtn"
+                class="search-button"
+            >
+                Find Parking
+            </button>
 
         </div>
 
+    </div>
 
-        <div class="footer-bottom">
+</section>
+
+
+<section class="section" id="Features">
+
+    <div class="section-heading">
+
+        <h2>SmartPark Features</h2>
+
+        <p>
+            Everything you need for a simple and smart parking experience.
+        </p>
+
+    </div>
+
+
+    <div class="features-container">
+
+        <div class="feature-card">
+
+            <h3>Easy Parking Search</h3>
 
             <p>
-                © 2026 SmartPark. All rights reserved.
+                Search parking spaces based on your preferred location.
             </p>
 
         </div>
 
-    </footer>
+
+        <div class="feature-card">
+
+            <h3>Real-Time Slots</h3>
+
+            <p>
+                View available and occupied parking slots.
+            </p>
+
+        </div>
 
 
-    <script src="index.js"></script>
+        <div class="feature-card">
+
+            <h3>Quick Booking</h3>
+
+            <p>
+                Book your parking slot easily.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <h3>Easy Return</h3>
+
+            <p>
+                Return your vehicle and make the parking slot available again.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="HowItWorks">
+
+    <div class="section-heading">
+
+        <h2>How It Works</h2>
+
+        <p>
+            Park your vehicle in a few simple steps.
+        </p>
+
+    </div>
+
+
+    <div class="steps-container">
+
+        <div class="step-card">
+
+            <h3>01</h3>
+
+            <h4>Search</h4>
+
+            <p>
+                Select your location, date and time.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <h3>02</h3>
+
+            <h4>Select Slot</h4>
+
+            <p>
+                Choose an available parking slot.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <h3>03</h3>
+
+            <h4>Book</h4>
+
+            <p>
+                Enter your vehicle details and confirm your booking.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <h3>04</h3>
+
+            <h4>Park</h4>
+
+            <p>
+                Park your vehicle in the selected slot.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section about-section" id="About">
+
+    <div class="section-heading">
+
+        <h2>About SmartPark</h2>
+
+        <p>
+            SmartPark is a smart parking management platform designed
+            to make parking easier and more convenient.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="Parking">
+
+    <div class="section-heading">
+
+        <h2>Popular Parking Areas</h2>
+
+        <p>
+            Check parking availability in popular locations.
+        </p>
+
+    </div>
+
+
+    <div id="parkingResults" class="parking-results">
+
+        <div class="parking-card">
+
+            <h3>
+                City Center Parking
+            </h3>
+
+            <p>
+                <strong>Location:</strong>
+                Main Road
+            </p>
+
+            <p>
+                <strong>Total Slots:</strong>
+                24
+            </p>
+
+            <p>
+                <strong>Available Slots:</strong>
+                <span
+                    class="available-slots"
+                    data-parking="City Center Parking"
+                >
+                    24
+                </span>
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                ₹30/hour
+            </p>
+
+        </div>
+
+
+        <div class="parking-card">
+
+            <h3>
+                Tech Park Parking
+            </h3>
+
+            <p>
+                <strong>Location:</strong>
+                IT Road
+            </p>
+
+            <p>
+                <strong>Total Slots:</strong>
+                40
+            </p>
+
+            <p>
+                <strong>Available Slots:</strong>
+                <span
+                    class="available-slots"
+                    data-parking="Tech Park Parking"
+                >
+                    40
+                </span>
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                ₹40/hour
+            </p>
+
+        </div>
+
+
+        <div class="parking-card">
+
+            <h3>
+                Metro Parking
+            </h3>
+
+            <p>
+                <strong>Location:</strong>
+                Metro Station
+            </p>
+
+            <p>
+                <strong>Total Slots:</strong>
+                30
+            </p>
+
+            <p>
+                <strong>Available Slots:</strong>
+                <span
+                    class="available-slots"
+                    data-parking="Metro Parking"
+                >
+                    30
+                </span>
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                ₹25/hour
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div id="slotsSection"></div>
+
+</section>
+
+
+<section
+    class="section booking-section"
+    id="Booking"
+>
+
+    <div class="section-heading">
+
+        <h2>
+            Book Your Parking Slot
+        </h2>
+
+        <p>
+            Select your parking area and slot.
+        </p>
+
+    </div>
+
+
+    <div class="booking-container">
+
+        <div class="booking-form">
+
+            <div class="form-group">
+
+                <label for="bookingParking">
+                    Parking Area
+                </label>
+
+                <select id="bookingParking">
+
+                    <option value="">
+                        Select Parking Area
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="bookingSlot">
+                    Parking Slot
+                </label>
+
+                <select id="bookingSlot">
+
+                    <option value="">
+                        Select Slot
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="bookingDate">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="bookingTime">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="bookingTime"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="vehicleNumber">
+                    Vehicle Number
+                </label>
+
+                <input
+                    type="text"
+                    id="vehicleNumber"
+                    placeholder="Enter vehicle number"
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                class="confirm-button"
+            >
+                Confirm Booking
+            </button>
+
+        </div>
+
+
+        <div id="bookingConfirmation"></div>
+
+    </div>
+
+</section>
+
+
+<section
+    class="section contact-section"
+    id="Contact"
+>
+
+    <div class="section-heading">
+
+        <h2>
+            Contact Us
+        </h2>
+
+        <p>
+            Have questions? Contact SmartPark.
+        </p>
+
+    </div>
+
+
+    <div class="contact-container">
+
+        <div class="contact-form">
+
+            <div class="form-group">
+
+                <label for="contactName">
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Enter your name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="contactEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Enter your email"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="contactSubject">
+                    Subject
+                </label>
+
+                <input
+                    type="text"
+                    id="contactSubject"
+                    placeholder="Enter subject"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="contactMessage">
+                    Message
+                </label>
+
+                <textarea
+                    id="contactMessage"
+                    placeholder="Enter your message"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="contact-button"
+            >
+                Send Message
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-section">
+
+            <h2>
+                SmartPark
+            </h2>
+
+            <p>
+                Smart parking made simple.
+            </p>
+
+        </div>
+
+
+        <div class="footer-section">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="#Home">
+                Home
+            </a>
+
+            <a href="#Features">
+                Features
+            </a>
+
+            <a href="#About">
+                About
+            </a>
+
+            <a href="#Parking">
+                Parking
+            </a>
+
+        </div>
+
+
+        <div class="footer-section">
+
+            <h3>
+                Account
+            </h3>
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="signup.html">
+                Sign Up
+            </a>
+
+            <a href="dashboard.html">
+                My Booking
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 SmartPark. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="index.js"></script>
 
 </body>
-
 </html>

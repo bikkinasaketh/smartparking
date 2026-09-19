@@ -1,0 +1,178 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartPark - Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="logo">
+            <h1>Smart<span>Park</span></h1>
+        </div>
+
+        <button id="logoutButton" class="logout-button">
+            Logout
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <section class="welcome-section">
+
+            <h2>
+                Welcome, <span id="userName">User</span>
+            </h2>
+
+            <p>
+                Manage your parking easily from your dashboard.
+            </p>
+
+        </section>
+
+
+        <section class="dashboard-section">
+
+            <div class="dashboard-container">
+
+                <div class="dashboard-card">
+
+                    <h3>Find Parking</h3>
+
+                    <p>
+                        Search and book an available parking slot.
+                    </p>
+
+                    <a href="index.html#Home" class="dashboard-button">
+                        Find Parking
+                    </a>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <h3>My Booking</h3>
+
+                    <p>
+                        View your current parking booking details.
+                    </p>
+
+                    <button id="viewBookingButton" class="dashboard-button">
+                        View Booking
+                    </button>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <h3>Return Car</h3>
+
+                    <p>
+                        Return your vehicle and release your parking slot.
+                    </p>
+
+                    <button id="returnCarButton" class="dashboard-button">
+                        Return Car
+                    </button>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <h3>Profile</h3>
+
+                    <p>
+                        View your account information.
+                    </p>
+
+                    <button id="profileButton" class="dashboard-button">
+                        View Profile
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section id="bookingSummary" class="booking-summary">
+
+            <h2>My Booking</h2>
+
+            <div id="bookingDetails">
+
+                <p>
+                    No active booking found.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section id="profileDetails" class="profile-section">
+
+            <h2>Profile</h2>
+
+            <div class="profile-card">
+
+                <p>
+                    <strong>First Name:</strong>
+                    <span id="profileFirstName"></span>
+                </p>
+
+                <p>
+                    <strong>Last Name:</strong>
+                    <span id="profileLastName"></span>
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    <span id="profileEmail"></span>
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section id="returnSection" class="return-section">
+
+            <div id="returnForm">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="dashboard-footer">
+
+        <p>
+            © 2026 SmartPark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
+```
