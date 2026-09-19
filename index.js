@@ -460,8 +460,7 @@ function showSlots(parkingName) {
 
 function selectSlot(slot) {
 
-    selectedSlot =
-        slot;
+    selectedSlot = slot;
 
     document
         .querySelectorAll(
@@ -492,12 +491,46 @@ function selectSlot(slot) {
 
     if (bookingParking) {
 
+        bookingParking.innerHTML = "";
+
+        const parkingOption =
+            document.createElement(
+                "option"
+            );
+
+        parkingOption.value =
+            selectedParking.name;
+
+        parkingOption.textContent =
+            selectedParking.name;
+
+        bookingParking.appendChild(
+            parkingOption
+        );
+
         bookingParking.value =
             selectedParking.name;
 
     }
 
     if (bookingSlot) {
+
+        bookingSlot.innerHTML = "";
+
+        const slotOption =
+            document.createElement(
+                "option"
+            );
+
+        slotOption.value =
+            selectedSlot;
+
+        slotOption.textContent =
+            selectedSlot;
+
+        bookingSlot.appendChild(
+            slotOption
+        );
 
         bookingSlot.value =
             selectedSlot;
@@ -961,9 +994,7 @@ if (contactButton) {
 
             }
 
-            if (
-                !email.includes("@")
-            ) {
+            if (!email.includes("@")) {
 
                 alert(
                     "Please enter a valid email"
